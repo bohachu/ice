@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato|Annie+Use+Your+Telescope"
+      rel="stylesheet"
+    />
+    <title>Happy Holidays!</title>
+    <link href="./app.dfbefa25254707bb65185c7f0f8c33bf.css" rel="stylesheet" />
+  </head>
+  <body>
+    <script>
+      function csv_to_dic(str_csv) {
+        // const ary = Papa.parse(str_csv).data;
+        const ary = csv_to_ary(str_csv);
+        let dic = {};
+        for (let i = 0; i < ary.length; i++) {
+          let str_key = ary[i][0];
+          let str_value = ary[i][1];
+          dic[str_key] = str_value;
+        }
+        return dic;
+      }
+      function csv_to_ary(str_data) {
+        let strDelimiter = ",";
+        var objPattern = new RegExp(
+          "(\\" +
+            strDelimiter +
+            "|\\r?\\n|\\r|^)" +
+            // Quoted fields.
+            '(?:"([^"]*(?:""[^"]*)*)"|' +
+            // Standard fields.
+            '([^"\\' +
+            strDelimiter +
+            "\\r\\n]*))",
+          "gi"
+        );
+        var arrData = [[]];
+        var arrMatches = null;
+        while ((arrMatches = objPattern.exec(str_data))) {
+          var strMatchedDelimiter = arrMatches[1];
+          if (
+            strMatchedDelimiter.length &&
+            strMatchedDelimiter !== strDelimiter
+          ) {
+            arrData.push([]);
+          }
+          var strMatchedValue;
+          if (arrMatches[2]) {
+            strMatchedValue = arrMatches[2].replace(new RegExp('""', "g"), '"');
+          } else {
+            strMatchedValue = arrMatches[3];
+          }
+          arrData[arrData.length - 1].push(strMatchedValue);
+        }
+        return arrData;
+      }
+      let str_page_id = "ice";
+      let str_csv =
+        "https://cameo-motion-20210123-0801-five.vercel.app/cameo-motion/v3/cameo-ice/data/data.csv";
+      var dic = {
+        PLAY: "PLAY",
+        Seitwerk: "Seitwerk",
+        wünscht: "wünscht",
+        ein: "ein",
+        frohes: "frohes",
+        Fest: "Fest",
+        und: "und",
+        alles: "alles",
+        Gute: "Gute",
+        für: "für",
+        "2020!": "2020!",
+        "FREAK OUT!": "FREAK OUT!"
+      };
+      const channel = new BroadcastChannel(str_page_id + "_" + str_csv);
+      channel.onmessage = (e) => {
+        dic = csv_to_dic(e.data);
+        console.log("接收到發射方的東西了");
+        console.log(dic);
+        var script = document.createElement("script");
+        script.src = "./app.js";
+        document.getElementsByTagName("head")[0].appendChild(script);
+      };
+    </script>
+    <script id="ice" type="text/javascript" src="./app.js"></script>
+  </body>
+</html>

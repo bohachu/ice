@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      charset="utf-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cameo-motion-20210123-0801-five.vercel.app/cameo-motion/v3/cameo-core/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cameo-motion-20210123-0801-five.vercel.app/cameo-motion/v3/cameo-core/css/style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cameo-motion-20210123-0801-five.vercel.app/cameo-motion/v3/cameo-core/css/tabulator_midnight.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"
+    ></script>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script src="src/index.js"></script>
+
+    <script type="module">
+      import "https://cameo-motion-20210123-0801-five.vercel.app/cameo-motion/v3/cameo-grid/js/cameo-grid.js";
+    </script>
+    <cameo-grid
+      page-id="ice"
+      csv="https://cameo-motion-20210123-0801-five.vercel.app/cameo-motion/v3/cameo-ice/data/data.csv"
+    >
+    </cameo-grid>
+  </body>
+</html>
